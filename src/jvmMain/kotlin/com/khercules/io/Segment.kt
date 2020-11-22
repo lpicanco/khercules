@@ -7,7 +7,7 @@ import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.StandardOpenOption
 
-class Segment(private val file: File, writeMode: Boolean = false) : Closeable {
+class Segment(file: File, writeMode: Boolean = false) : Closeable {
     private val fileChannel: FileChannel = if (writeMode) {
         FileChannel.open(file.toPath(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)
     } else {

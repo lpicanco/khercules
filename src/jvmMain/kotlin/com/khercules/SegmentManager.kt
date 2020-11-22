@@ -23,7 +23,7 @@ class SegmentManager(private val config: Config) {
     }
 
     fun getActiveSegment(): Segment {
-        if (activeSegment.size >= DEFAULT_MAX_SEGMENT_SIZE_IN_BYTES) {
+        if (activeSegment.size >= config.segmentSizeInBytes) {
             activeSegment = Segment(createSegmentFile(activeSegment.lastOffset + 1), writeMode = true)
         }
 
@@ -46,7 +46,6 @@ class SegmentManager(private val config: Config) {
     }
 
     companion object {
-        const val DEFAULT_MAX_SEGMENT_SIZE_IN_BYTES = 400
         const val FILE_EXTENSION = ".khs"
     }
 }
