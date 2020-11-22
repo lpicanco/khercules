@@ -23,8 +23,6 @@ class SegmentManager(private val config: Config) {
     }
 
     fun getActiveSegment(): Segment {
-        println("segment size: " + activeSegment.size)
-
         if (activeSegment.size >= DEFAULT_MAX_SEGMENT_SIZE_IN_BYTES) {
             activeSegment = Segment(createSegmentFile(activeSegment.lastOffset + 1), writeMode = true)
         }
