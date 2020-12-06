@@ -7,18 +7,20 @@ import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.StandardOpenOption
 
-class Segment(file: File, writeMode: Boolean = false) : Closeable {
+class Segment(private val file: File, writeMode: Boolean = false) : Closeable {
     private val fileChannel: FileChannel = if (writeMode) {
         FileChannel.open(file.toPath(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)
     } else {
         FileChannel.open(file.toPath(), StandardOpenOption.READ)
     }
 
-    private val startOffset = file.nameWithoutExtension.toInt()
+    val id = file.nameWithoutExtension.toLong()
     var size: Long = fileChannel.size()
         private set
 
-    val lastOffset get() = startOffset + size
+    val lastOffset get() = id + size
+
+    fun makeWritable() = Segment(file, writeMode = true)
 
     fun write(key: String, value: ByteArray): Long {
         val keySize: Int = key.length
@@ -33,11 +35,11 @@ class Segment(file: File, writeMode: Boolean = false) : Closeable {
         buffer.put(value)
         val bytesWritten = fileChannel.write(buffer.flip())
         size += bytesWritten
-        return startOffset + startPosition
+        return id + startPosition
     }
 
     fun readValue(absoluteOffset: Long): ByteArray {
-        val position = absoluteOffset - startOffset
+        val position = absoluteOffset - id
         val header = readHeader(position)
         return readValue(position, header)
     }
@@ -48,7 +50,7 @@ class Segment(file: File, writeMode: Boolean = false) : Closeable {
             while (position < size) {
                 var header = readHeader(position)
                 var key = readKey(position, header)
-                yield(key.decodeToString() to startOffset + position)
+                yield(key.decodeToString() to id + position)
 
                 position += HEADER_SIZE + header.keySize + header.valueSize
             }
