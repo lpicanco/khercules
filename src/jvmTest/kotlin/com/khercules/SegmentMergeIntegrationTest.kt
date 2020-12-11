@@ -43,7 +43,7 @@ class SegmentMergeIntegrationTest {
         }
     }
 
-    // Neo and key should be compacted. Morpheus, shouldn't(active segment)
+    // Neo and Trinity should be compacted. Morpheus, shouldn't(active segment)
     private fun verifyMerge(config: Config) {
         File(config.databaseLocation).walk().filter { it.isFile }.forEach { println(it) }
         assertEquals(2, SegmentManager(config).allSegments().count())

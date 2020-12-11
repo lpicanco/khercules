@@ -1,6 +1,5 @@
-package com.khercules.io
+package com.khercules
 
-import com.khercules.KVHeader
 import java.io.Closeable
 import java.io.File
 import java.nio.ByteBuffer

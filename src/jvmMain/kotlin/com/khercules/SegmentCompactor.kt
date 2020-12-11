@@ -1,7 +1,5 @@
 package com.khercules
 
-import com.khercules.io.Segment
-
 class SegmentCompactor(
     private val segmentManager: SegmentManager,
     private val index: MutableMap<String, CollectionEntry>

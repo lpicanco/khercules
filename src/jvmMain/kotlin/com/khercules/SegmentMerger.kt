@@ -1,7 +1,5 @@
 package com.khercules
 
-import com.khercules.io.Segment
-
 class SegmentMerger(
     private val segmentManager: SegmentManager,
     private val index: MutableMap<String, CollectionEntry>,
