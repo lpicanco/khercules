@@ -1,15 +1,18 @@
 package com.khercules
 
 import java.io.Closeable
+import java.util.*
 
 class CollectionEntry(val offset: Long, val segmentId: Long)
 
 class KVCollection(private val config: Config) : Closeable {
     private val index = mutableMapOf<String, CollectionEntry>()
     private val segmentManager: SegmentManager = SegmentManager(config)
+    private val scheduledTasksTimer: Timer
 
     init {
         rebuildIndex()
+        scheduledTasksTimer = scheduleTasks()
     }
 
     fun put(key: String, document: ByteArray) {
@@ -30,6 +33,7 @@ class KVCollection(private val config: Config) : Closeable {
     }
 
     fun getSegmentCompactor() = SegmentCompactor(segmentManager, index)
+
     fun getSegmentMerger() = SegmentMerger(segmentManager, index, config)
 
     private fun rebuildIndex() {
@@ -43,7 +47,16 @@ class KVCollection(private val config: Config) : Closeable {
         }
     }
 
+    private fun scheduleTasks(): Timer {
+        return kotlin.concurrent.fixedRateTimer(period = config.compactionRunIntervalInSeconds * 1000) {
+            getSegmentCompactor().execute()
+            getSegmentMerger().execute()
+        }
+    }
+
     override fun close() {
+        scheduledTasksTimer.cancel()
         segmentManager.getActiveSegment().close()
     }
+
 }
