@@ -23,6 +23,13 @@ The index is stored in a Hash table in RAM
 Khercules comes with a simple CLI:
 [![asciicast](https://asciinema.org/a/378996.svg)](https://asciinema.org/a/378996)
 
+### CLI commands
+- `get` Get a value by a key
+- `put` Put a value by a key
+- `compact` Run the segment compaction process
+- `merge` Run the segment merge process
+- `quit` Quit the CLI
+
 ### How to run the CLI
 
 ```bash
