@@ -1,3 +1,6 @@
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.4.10-orange.svg) ](https://kotlinlang.org/)
+[![Java 11](https://img.shields.io/badge/Java-11-blue.svg) ](https://openjdk.java.net/)
+
 # khercules
 A fast append-only log structured KV store library in Kotlin
 
