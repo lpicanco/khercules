@@ -2,14 +2,14 @@ package com.khercules.cli.command
 
 import com.khercules.Config
 import com.khercules.KVCollection
-import picocli.CommandLine
 import java.util.Scanner
+import picocli.CommandLine
 
 @CommandLine.Command(
     name = "kkv",
     description = ["KHercules CLI"]
 )
-internal class KKVCommand: Runnable {
+internal class KKVCommand : Runnable {
     @CommandLine.Parameters(description = ["Database path"])
     lateinit var databaseLocation: String
 

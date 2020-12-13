@@ -18,7 +18,6 @@ tasks.getByName<JavaExec>("run") {
     standardInput = System.`in`
 }
 
-
 tasks.withType<Jar> {
     manifest {
         attributes("Main-Class" to "com.khercules.cli.MainKt")

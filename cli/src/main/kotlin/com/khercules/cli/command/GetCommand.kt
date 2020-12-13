@@ -3,7 +3,7 @@ package com.khercules.cli.command
 import picocli.CommandLine
 
 @CommandLine.Command(name = "get", description = ["get a value by a key"])
-class GetCommand: Runnable {
+class GetCommand : Runnable {
     @CommandLine.Parameters(description = ["key to get value"])
     lateinit var key: String
 

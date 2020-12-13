@@ -1,7 +1,7 @@
 package com.khercules
 
 import java.io.Closeable
-import java.util.*
+import java.util.Timer
 
 class CollectionEntry(val offset: Long, val segmentId: Long)
 
@@ -58,5 +58,4 @@ class KVCollection(private val config: Config) : Closeable {
         scheduledTasksTimer.cancel()
         segmentManager.getActiveSegment().close()
     }
-
 }

@@ -3,7 +3,7 @@ package com.khercules.cli.command
 import picocli.CommandLine
 
 @CommandLine.Command(name = "put", description = ["put a value by a key"])
-class PutCommand: Runnable {
+class PutCommand : Runnable {
     @CommandLine.Parameters(index = "0", description = ["key to put"])
     lateinit var key: String
 
