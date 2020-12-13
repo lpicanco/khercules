@@ -11,6 +11,11 @@ All data are organized in segments
 | key        | key_size      |
 | value      | value_size    |
 
+Periodically a process of compacting and merging segments is performed, removing old data. 
+
+## Index
+The index is stored in a Hash table in RAM
+
 ## CLI
 Khercules comes with a simple CLI:
 [![asciicast](https://asciinema.org/a/378996.svg)](https://asciinema.org/a/378996)
